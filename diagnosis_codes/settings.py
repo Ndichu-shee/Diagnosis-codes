@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'diagnosis_codes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'codesdb',
-        'USER': 'codesuser',
-        'PASSWORD': 'codes@123',
+        'NAME': 'icddb',
+        'USER': 'icduser',
+        'PASSWORD': 'icd@123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -106,6 +106,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

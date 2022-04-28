@@ -3,6 +3,8 @@ from .serializers import UserSerializer,LoginUserSerializer,CsvUploadSerializer,
 from rest_framework import viewsets, permissions
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import DiagnosisCodes
 from rest_framework import status
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -47,23 +49,24 @@ class CsvuploadViewSet(viewsets.ModelViewSet):
         if serializer.is_valid(raise_exception=True):
             file = serializer.validated_data['file']
             reader = pd.read_csv(file)
+            print(reader)
             for _, row in reader.iterrows():
-                csv = File(
-                    id = row['id'],
-                    category_code = row['category_code'],
+                DiagnosisCodes.objects.create(
+               
+                    category_code  = row['category_code'],
+                    category_title  = row['category_title'],
                     code_id = row['code_id'],
-                    summary = row['summary'],
+                    summary= row['summary'],
                     description= row['description'],
-                    category_title  = row['category_title '],
-                    icd_code= row['icd_code'],)
+                    )
+                
 
-                csv.save()
-                import pdb; pdb.set_trace() 
+                # import pdb; pdb.set_trace() 
             return Response({"status":"CSV succesfully upload"})
             
 
 class DiagnosisCodesViewSet(viewsets.ModelViewSet):
-    queryset = ''
+    queryset = DiagnosisCodes.objects.all()
     serializer_class = DiagnosisCodesSerializer
 
     def createDiagnosis(self, request):
@@ -71,6 +74,6 @@ class DiagnosisCodesViewSet(viewsets.ModelViewSet):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response({"Fail": "yeeetetette"}, status=status.HTTP_201_CREATED)
-
+   
 
     

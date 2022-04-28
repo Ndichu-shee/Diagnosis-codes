@@ -21,8 +21,8 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'create_user', UserViewSet, basename='create_user')
 router.register(r'login_user', LoginUserViewSet, basename='login_user')
-router.register(r'upload', CsvuploadViewSet, basename="upload")
-router.register(r'add', DiagnosisCodesViewSet, basename='add')
+router.register(r'diagnosis-codes-upload', CsvuploadViewSet, basename="diagnosis-codes-upload")
+router.register(r'diagnosis-codes', DiagnosisCodesViewSet, basename='diagnosis-codes')
 
 
 urlpatterns = [
