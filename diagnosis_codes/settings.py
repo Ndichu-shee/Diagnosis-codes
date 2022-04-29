@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--t)con-mb!v(=bg@k*5+an-n_owv+f0d)k4m7cxj6d2w!be8!a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'diagnosis_codes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'icddb',
-        'USER': 'icduser',
-        'PASSWORD': 'icd@123',
+        'NAME': 'recordsdb',
+        'USER': 'recordsuser',
+        'PASSWORD': 'records@123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -111,9 +111,13 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -136,3 +140,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD =  "username"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'icdcoodes@gmail.com'
+EMAIL_HOST_PASSWORD = 'icdcodes254'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

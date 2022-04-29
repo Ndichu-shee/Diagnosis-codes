@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from .serializers import UserSerializer,LoginUserSerializer,CsvUploadSerializer,SaveCsvSerializer,DiagnosisCodesSerializer
 from rest_framework import viewsets, permissions
+# from django.contrib.auth.decorators import login_required 
+# from django.utils.decorators import method_decorator 
+# from snippets.permissions import IsOwnerOrReadOnly
+# from rest_framework.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -9,6 +16,9 @@ from rest_framework import status
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import io, csv, pandas as pd
+from diagnosis_codes.settings import EMAIL_HOST_USER
+from django.core import mail
+from django.core.mail import send_mail
 # Create your views here.
 
 
@@ -33,7 +43,7 @@ class LoginUserViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
 
     def login(self,request,format=None):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.validate_data
             status_code =status.HTTP_200_OK
@@ -42,7 +52,10 @@ class LoginUserViewSet(viewsets.ModelViewSet):
 
 class CsvuploadViewSet(viewsets.ModelViewSet):
     serializer_class =  CsvUploadSerializer
+
     queryset = ''
+  
+    # @permission_classes((IsAuthenticated, ))
 
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -60,6 +73,11 @@ class CsvuploadViewSet(viewsets.ModelViewSet):
                     category_title  = row['category_title'],
 
                     )
+            emails=request.user.email
+            subject = "mPharma CSV upload"
+            message = "Your CSV was successfully uploaded"
+            recipient=emails
+            send_mail(subject, message,EMAIL_HOST_USER,[recipient])  
                 
 
                 # import pdb; pdb.set_trace() 

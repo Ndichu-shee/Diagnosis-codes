@@ -3,7 +3,7 @@ from rest_framework.serializers import FileField,Serializer
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from  django.contrib.auth import authenticate
-from .models import NewUser,DiagnosisCodes
+from .models import DiagnosisCodes
 
 class  UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True,validators=[UniqueValidator(queryset=User.objects.all())])
@@ -20,19 +20,11 @@ class  UserSerializer(serializers.ModelSerializer):
         return new_user
 
 class LoginUserSerializer(serializers.Serializer):
-    class Meta:
-        model = NewUser
-        fields = ['email', 'password']
-        extra_kwargs = {'password': {'write_only': True}}
+    email= serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
 
-    email = serializers.EmailField()
-    password = serializers.CharField()
-
-    def validate(self, data):
-        user = authenticate(**data)
-        if user and NewUser.is_active:
-            return custom_user
-        raise serializers.ValidationError("Unable to log in with provided credentials.")
+    def create(self, validated_data):
+        return User.objects.create(**validated_data)
 
 class DiagnosisCodesSerializer(serializers.ModelSerializer):
 
