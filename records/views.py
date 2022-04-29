@@ -23,9 +23,9 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             new_user = serializer.save()
-            return Response({"status":"User added succesfully"})
+            return Response({"status":"User registered succesfully"})
         else:
-            return Response({"Fail": "blablal"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Fail": "User has not been registered"}, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginUserViewSet(viewsets.ModelViewSet):
     queryset = ''
@@ -54,10 +54,11 @@ class CsvuploadViewSet(viewsets.ModelViewSet):
                 DiagnosisCodes.objects.create(
                
                     category_code  = row['category_code'],
-                    category_title  = row['category_title'],
                     code_id = row['code_id'],
                     summary= row['summary'],
                     description= row['description'],
+                    category_title  = row['category_title'],
+
                     )
                 
 

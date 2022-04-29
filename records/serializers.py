@@ -19,20 +19,20 @@ class  UserSerializer(serializers.ModelSerializer):
         new_user = User.objects.create_user(validated_data['username'],None,validated_data['password'])
         return new_user
 
-class  LoginUserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField()
-    password= serializers.CharField()
-    
+class LoginUserSerializer(serializers.Serializer):
     class Meta:
-        model = NewUser 
-        fields = ('email','password')
-        extra_kwargs = {'password': {'write_only':True}}
+        model = NewUser
+        fields = ['email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
 
-    def validate(self,data):
-        current_user = authenticate(**data)
-        if current_user and NewUser.is_active:
-            return current_user
-        raise serializers.ValidationError('Unable to login')
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and NewUser.is_active:
+            return custom_user
+        raise serializers.ValidationError("Unable to log in with provided credentials.")
 
 class DiagnosisCodesSerializer(serializers.ModelSerializer):
 
