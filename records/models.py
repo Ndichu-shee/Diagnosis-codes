@@ -2,6 +2,7 @@ from django.db import models
 
 
 class DiagnosisCodes(models.Model):
+    
     CODES=(
         ('icd_9','ICD_9 2008'),
         ('icd_10','ICD_10 2015'),
@@ -13,7 +14,7 @@ class DiagnosisCodes(models.Model):
     addition_code = models.CharField(max_length=10)
     summary= models.TextField(null=True)
     description = models.TextField(default="")
-    category_title = models.CharField(null=True, max_length=20)
+    category_title = models.CharField(max_length=20)
 
 
     def __str__(self):

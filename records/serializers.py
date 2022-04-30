@@ -2,7 +2,6 @@ from rest_framework import serializers
 from rest_framework.serializers import FileField,Serializer
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
-from  django.contrib.auth import authenticate
 from .models import DiagnosisCodes
 
 class  UserSerializer(serializers.ModelSerializer):

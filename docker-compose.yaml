@@ -4,25 +4,21 @@ services:
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-   
     environment:
       - POSTGRES_DB=recordsdb
       - POSTGRES_USER=recordssuser
-      - POSTGRES_PASSWORD=records@123
-    
-
-  
+      - POSTGRES_PASSWORD=icdrecords
+    ports:
+    - "5434:5432"
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000 
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    env_file:
-      .env
+ 
     depends_on:
       - db
-      
 volumes:
   postgres_data:

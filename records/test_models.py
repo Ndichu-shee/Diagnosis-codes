@@ -2,7 +2,9 @@ from django.test import TestCase
 from .models import DiagnosisCodes
 
 class DiagnosisCodesTestCase(TestCase):
+     
     def setUp(self):
+
         DiagnosisCodes.objects.create(
             icd_code='ICD_10 2015',
             category_code='AOO',

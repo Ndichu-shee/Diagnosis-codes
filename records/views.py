@@ -1,13 +1,6 @@
 from django.shortcuts import render
 from .serializers import UserSerializer,LoginUserSerializer,CsvUploadSerializer,SaveCsvSerializer,DiagnosisCodesSerializer
 from rest_framework import viewsets, permissions
-# from django.contrib.auth.decorators import login_required 
-# from django.utils.decorators import method_decorator 
-# from snippets.permissions import IsOwnerOrReadOnly
-# from rest_framework.permissions import IsOwnerOrReadOnly
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
-
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -24,6 +17,9 @@ from django.core.mail import send_mail
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to registered
+    """
     queryset = ''
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny,)
@@ -38,6 +34,9 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({"Fail": "User has not been registered"}, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginUserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to login
+    """
     queryset = ''
     serializer_class = LoginUserSerializer
     permission_classes = (permissions.AllowAny,)
@@ -46,17 +45,16 @@ class LoginUserViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.validate_data
-            status_code =status.HTTP_200_OK
-            message="happpppy"
-            return Response(status=status_code,message=message)
+            return Response(status=status.HTTP_200_OK)
 
 class CsvuploadViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows logged in users to upload a csv and receive an email after uploading
+    """
     serializer_class =  CsvUploadSerializer
 
     queryset = ''
   
-    # @permission_classes((IsAuthenticated, ))
-
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -81,10 +79,13 @@ class CsvuploadViewSet(viewsets.ModelViewSet):
                 
 
                 # import pdb; pdb.set_trace() 
-            return Response({"status":"CSV succesfully upload"})
+            return Response({"status":"CSV succesfully uploaded"})
             
 
 class DiagnosisCodesViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to create a new diagnosis code, list all the codes, get by id, update a specific record and delete a record
+    """
     queryset = DiagnosisCodes.objects.all()
     serializer_class = DiagnosisCodesSerializer
 
@@ -92,7 +93,7 @@ class DiagnosisCodesViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response({"Fail": "yeeetetette"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "record created successfully"}, status=status.HTTP_201_CREATED)
    
 
     

@@ -11,6 +11,7 @@ from rest_framework import status
 
 
 class RegisterTest(APITestCase):
+    
     def setUp(self):
         self.test_user = User.objects.create_user('testuser', 'test@example.com', 'testpassword')
         self.codes_list_url = reverse('diagnosis-codes-list')
@@ -24,6 +25,7 @@ class RegisterTest(APITestCase):
         )
         
     def test_create_user(self):
+    
         data = {
             'username': 'joyce',
             'email':'joyce@gmail.com',
@@ -34,22 +36,26 @@ class RegisterTest(APITestCase):
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
         self.assertEqual(response.data['username'],data['username'])
 
-    # def test_create_user(self):
-    #     data = {
+    def test_login_user(self):
+        data = {
           
-    #         'email':'joyce@gmail.com',
-    #         'password':'wanjirundichu'
-    #     }
-    #     url = f"{'/login_user/'}"
-    #     response = self.client.post(url, data, format="json")
-    #     self.assertEqual(response.status_code,status.HTTP_200_OK)
-    #     self.assertEqual(response.data['email'],data['email'])
+            'email':'joyce@gmail.com',
+            'password':'wanjirundichu'
+        }
+        url = f"{'/login_user/'}"
+        response = self.client.post(url, data, format="json")
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        self.assertEqual(response.data['email'],data['email'])
 
-    def test_ulpoad_csv(self):
-        file = SimpleUploadedFile("file.csv", b"abcdef", content_type="text/csv")
-        data= {"file": file}
-        response = self.client.post('/diagnosis-codes-upload/', data, format="multipart")
-        self.assertEqual(response.status_code, 200)
+    # def test_ulpoad_csv(self):
+    #     data1= {
+    #      'email':'joyce@gmail.com'
+      
+    #     }
+    #     file = SimpleUploadedFile("file.csv", b"abcdef", content_type="text/csv")
+    #     data= {"file": file}
+    #     response = self.client.post('/diagnosis-codes-upload/', data, format="multipart")
+    #     self.assertEqual(response.status_code, 200)
     
     
     def test_create_record(self):
