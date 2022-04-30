@@ -12,6 +12,7 @@ Python, Django, DRF, PostgreSQL.
  
  ## Run Server
  `sudo docker-compose build`
+ 
  `sudo docker-compose up`
  ### Run the migrations 
  `sudo docker-compose exec web python manage.py makemigrations`
