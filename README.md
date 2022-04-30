@@ -3,7 +3,6 @@ mPharma Backend Assessment
 
 RESTful API that can allow people to utilize an internationally recognized set of diagnosis codes
 
-# Database Design
 
 # Technologies Used
 Python, Django, DRF, PostgreSQL.
@@ -16,6 +15,7 @@ Python, Django, DRF, PostgreSQL.
  `sudo docker-compose up`
  ### Run the migrations 
  `sudo docker-compose exec web python manage.py makemigrations`
+ 
  `sudo docker-compose exec web python manage.py migrate`
  ### Create a super user
 `sudo docker-compose exec web python manage.py createsuperuser`
@@ -26,16 +26,16 @@ Python, Django, DRF, PostgreSQL.
    
  ## Accessing different endpoints
  
-  #### register a user
+ #### register a user
  `http://0.0.0.0:8000/create_user/` 
  
  #### login user
   `http://0.0.0.0:8000/login_user/`
   
-  #### upload a csv
+ #### upload a csv
   `http://0.0.0.0:8000/diagnosis-codes-upload/`
   
-  ##### View all the diagnosis codes
+ #### View all the diagnosis codes
   `http://0.0.0.0:8000/diagnosis-codes/`
   
   #### view, edit and deleting by id 
