@@ -10,6 +10,8 @@ Python, Django, DRF, PostgreSQL.
 # Running the app
  `git clone git@github.com:Ndichu-shee/Backend-Assessment.git`
  
+ `cd Backend-Assessment`
+ 
  ## Run Server
  `sudo docker-compose build`
  
