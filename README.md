@@ -17,7 +17,8 @@ Python, Django, DRF, PostgreSQL.
  ### Run the migrations 
  `sudo docker-compose exec web python manage.py makemigrations`
  `sudo docker-compose exec web python manage.py migrate`
-
+ ### Create a super user
+`sudo docker-compose exec web python manage.py createsuperuser`
  
  # Running the Tests
 
