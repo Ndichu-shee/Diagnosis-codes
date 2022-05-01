@@ -22,12 +22,16 @@ Python, Django, DRF, PostgreSQL.
  `docker-compose exec web python manage.py migrate`
  ### Create a super user
 `docker-compose exec web python manage.py createsuperuser`
+
  
  # Running the Tests
 
    `docker-compose exec web python manage.py test`
    
  ## Accessing different endpoints
+ 
+ #### log in as an admin
+ `http://0.0.0.0:8000/admin/`
  
  #### register a user
  `http://0.0.0.0:8000/create_user/` 
