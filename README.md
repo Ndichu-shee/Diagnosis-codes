@@ -13,19 +13,19 @@ Python, Django, DRF, PostgreSQL.
  `cd Backend-Assessment`
  
  ## Run Server
- `sudo docker-compose build`
+ `docker-compose build`
  
- `sudo docker-compose up`
+ `docker-compose up`
  ### Run the migrations 
- `sudo docker-compose exec web python manage.py makemigrations`
+ `docker-compose exec web python manage.py makemigrations`
  
- `sudo docker-compose exec web python manage.py migrate`
+ `docker-compose exec web python manage.py migrate`
  ### Create a super user
-`sudo docker-compose exec web python manage.py createsuperuser`
+`docker-compose exec web python manage.py createsuperuser`
  
  # Running the Tests
 
-   `sudo docker-compose exec web python manage.py test`
+   `docker-compose exec web python manage.py test`
    
  ## Accessing different endpoints
  
