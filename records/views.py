@@ -66,6 +66,7 @@ class CsvuploadViewSet(viewsets.ModelViewSet):
                
                     category_code  = row['category_code'],
                     code_id = row['code_id'],
+                    addition_code  = row['addition_code'],
                     summary= row['summary'],
                     description= row['description'],
                     category_title  = row['category_title'],

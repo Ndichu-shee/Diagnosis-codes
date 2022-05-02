@@ -5,19 +5,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=recordsdb
-      - POSTGRES_USER=recordssuser
-      - POSTGRES_PASSWORD=icdrecords
+      - POSTGRES_DB=icddb
+      - POSTGRES_USER=icduser
+      - POSTGRES_PASSWORD=icd@123
     ports:
     - "5434:5432"
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000 
+    command: python manage.py runserver 0.0.0.0:8000
+    restart:
     volumes:
-      - .:/app
+      - .:/records
+    restart: always
     ports:
       - "8000:8000"
- 
     depends_on:
       - db
 volumes:

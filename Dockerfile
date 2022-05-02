@@ -1,12 +1,6 @@
-
 FROM python:3.8
-
 ENV PYTHONUNBUFFERED 1
-
-RUN mkdir /app
-
-WORKDIR /app
-
-ADD . /app
-
+RUN mkdir /records
+WORKDIR /records
+ADD . /records
 RUN pip install -r requirements.txt
