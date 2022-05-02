@@ -72,6 +72,7 @@ class CsvuploadViewSet(viewsets.ModelViewSet):
                     category_title  = row['category_title'],
 
                     )
+                print(row)
             emails=request.user.email
             subject = "mPharma CSV upload"
             message = "Your CSV was successfully uploaded"
