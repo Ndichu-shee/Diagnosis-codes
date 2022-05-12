@@ -23,6 +23,7 @@ class RegisterTest(APITestCase):
             description='Cholera due to Vibrio cholerae 01, biovar cholerae',
             category_title='Cholera', 
         )
+    
         
     def test_create_user(self):
     
@@ -49,7 +50,7 @@ class RegisterTest(APITestCase):
 
     # def test_ulpoad_csv(self):
     #     data1= {
-    #      'email':'joyce@gmail.com'
+    #      'email':'ndichujoyce8@gmail.com'
       
     #     }
     #     file = SimpleUploadedFile("file.csv", b"abcdef", content_type="text/csv")
@@ -68,19 +69,37 @@ class RegisterTest(APITestCase):
             'category_title':'Cholera', 
         }
         response = self.client.post(self.codes_list_url,data,format='json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+    
+    def test_wrong_record(self):
+        data = {
+            'category_code':'A00',
+            'code_id':'0' ,
+            'addition_code':"A000",
+            'summary':'Cholera due to Vibrio cholerae 01, biovar cholerae',
+            'description':'Cholera due to Vibrio cholerae 01, biovar cholerae',
+            'category_title':'',
+        }
+        response = self.client.post(self.codes_list_url,data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
 
 
     def test_get_codes_list(self):
         response = self.client.get(self.codes_list_url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
 
     def test_get_record_id(self):
       
         current_url = f'{self.codes_list_url}{self.data.id}/'
         response = self.client.get(current_url)
-        self.assertEqual(response.status_code, 200)
-
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+  
+    # def test_get_wrong_record_id(self):
+    
+    #     current_url = f'{self.codes_list_url}{self.data.id}/'
+    #     response = self.client.get(current_url)
+    #     self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
 
     def test_update_record_id(self):
         update_data = {
@@ -93,13 +112,13 @@ class RegisterTest(APITestCase):
         }
         current_url = f'{self.codes_list_url}{self.data.id}/'
         response = self.client.put(current_url,update_data ,format='json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
     def test_delete_record_id(self):
         current_url = f'{self.codes_list_url}{self.data.id}/'
         response = self.client.delete(current_url)
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
         
  
 
