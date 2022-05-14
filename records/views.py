@@ -1,26 +1,28 @@
 from django.shortcuts import render
-from .serializers import UserSerializer,LoginUserSerializer,CsvUploadSerializer,SaveCsvSerializer,DiagnosisCodesSerializer
+from .serializers import UserSerializer,LoginUserSerializer,CsvUploadSerializer,DiagnosisCodesSerializer
 from rest_framework import viewsets, permissions
-from rest_framework.permissions import AllowAny
-from rest_framework.viewsets import ViewSet
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.viewsets import ViewSet,GenericViewSet
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import DiagnosisCodes
 from rest_framework import status
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import pandas as pd
 from diagnosis_codes.settings import EMAIL_HOST_USER
 from django.core import mail
 from django.core.mail import send_mail
-# Create your views here.
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+
 
 
 class UserView(generics.CreateAPIView):
+    """
+    API endpoint that allows users to register
+    """
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
+    
 
 class LoginUserViewSet(viewsets.ModelViewSet):
     """
@@ -36,7 +38,7 @@ class LoginUserViewSet(viewsets.ModelViewSet):
             user = serializer.validate_data
             return Response(status=status.HTTP_200_OK) 
 
-class CsvuploadView(generics.CreateAPIView):
+class CsvuploadViewSet(GenericViewSet):
     """
     API endpoint that allows logged in users to upload a csv and receive an email after uploading
     """

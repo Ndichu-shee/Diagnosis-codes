@@ -14,7 +14,7 @@ class DiagnosisCodes(models.Model):
     addition_code = models.CharField(max_length=10)
     summary= models.TextField(null=True)
     description = models.TextField(default="")
-    category_title = models.CharField(max_length=20)
+    category_title = models.CharField(max_length=200)
 
 
     def __str__(self):

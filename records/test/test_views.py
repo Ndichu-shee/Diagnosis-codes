@@ -40,18 +40,18 @@ class RegisterTest(APITestCase):
     def test_login_user(self):
         data = {
           
-            'email':'joyce@gmail.com',
+            'email':'joycee@gmail.com',
             'password':'wanjirundichu'
         }
         url = f"{'/login_user/'}"
         response = self.client.post(url, data, format="json")
-        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['email'],data['email'])
 
     # def test_ulpoad_csv(self):
-    #     data1= {
-    #      'email':'ndichujoyce8@gmail.com'
-      
+    #     data = {
+    #         'username': 'joyce',
+    #         'password':'wanjirundichu'
     #     }
     #     file = SimpleUploadedFile("file.csv", b"abcdef", content_type="text/csv")
     #     data= {"file": file}

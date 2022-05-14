@@ -41,8 +41,5 @@ class DiagnosisCodesSerializer(serializers.ModelSerializer):
 class CsvUploadSerializer(serializers.Serializer):
     file = serializers.FileField()
 
-class SaveCsvSerializer(serializers.Serializer):
-    class Meta:
-        model = DiagnosisCodes
-        fields = "__all__"
+
 
