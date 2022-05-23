@@ -35,9 +35,6 @@ Python, Django, DRF, PostgreSQL.
  
  #### register a user
  `http://0.0.0.0:8000/create_user/` 
- 
- #### login user
-  `http://0.0.0.0:8000/login_user/`
   
  #### upload a csv
   `http://0.0.0.0:8000/diagnosis-codes-upload/`
