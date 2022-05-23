@@ -37,16 +37,16 @@ class RegisterTest(APITestCase):
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
         self.assertEqual(response.data['username'],data['username'])
 
-    def test_login_user(self):
-        data = {
+    # def test_login_user(self):
+    #     data = {
           
-            'email':'joycee@gmail.com',
-            'password':'wanjirundichu'
-        }
-        url = f"{'/login_user/'}"
-        response = self.client.post(url, data, format="json")
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
-        self.assertEqual(response.data['email'],data['email'])
+    #         'email':'joycee@gmail.com',
+    #         'password':'wanjirundichu'
+    #     }
+    #     url = f"{'/login_user/'}"
+    #     response = self.client.post(url, data, format="json")
+    #     self.assertEqual(response.status_code,status.HTTP_200_OK)
+    #     self.assertEqual(response.data['email'],data['email'])
 
     # def test_ulpoad_csv(self):
     #     data = {
@@ -95,11 +95,7 @@ class RegisterTest(APITestCase):
         response = self.client.get(current_url)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
   
-    # def test_get_wrong_record_id(self):
-    
-    #     current_url = f'{self.codes_list_url}{self.data.id}/'
-    #     response = self.client.get(current_url)
-    #     self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+
 
     def test_update_record_id(self):
         update_data = {

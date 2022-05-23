@@ -38,7 +38,7 @@ class LoginUserViewSet(viewsets.ModelViewSet):
             user = serializer.validate_data
             return Response(status=status.HTTP_200_OK) 
 
-class CsvuploadViewSet(GenericViewSet):
+class CsvuploadViewSet(viewsets.GenericViewSet):
     """
     API endpoint that allows logged in users to upload a csv and receive an email after uploading
     """
@@ -49,22 +49,19 @@ class CsvuploadViewSet(GenericViewSet):
   
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            file = serializer.validated_data['file']
-            reader = pd.read_csv(file)
-            print(reader)
-            for _, row in reader.iterrows():
-                DiagnosisCodes.objects.create(
-               
-                    category_code  = row['category_code'],
-                    code_id = row['code_id'],
-                    addition_code  = row['addition_code'],
-                    summary= row['summary'],
-                    description= row['description'],
-                    category_title  = row['category_title'],
-
-                    )
-                
+        serializer.is_valid(raise_exception=True)
+        file = serializer.validated_data['file']
+        reader = pd.read_csv(file)
+        print(reader)
+        for _, row in reader.iterrows():
+            DiagnosisCodes.objects.create(
+                category_code  = row['category_code'],
+                code_id = row['code_id'],
+                addition_code  = row['addition_code'],
+                summary= row['summary'],
+                description= row['description'],
+                category_title  = row['category_title']
+                )
             emails=request.user.email
             subject = "mPharma CSV upload"
             message = "Your CSV was successfully uploaded"

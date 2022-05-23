@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=recordssuser
       - POSTGRES_PASSWORD=icdrecords
     ports:
-    - "5434:5432"
+    - "5432:5432"
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
